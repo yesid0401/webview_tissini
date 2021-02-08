@@ -1,0 +1,7 @@
+{
+  "name": "webview_tissini",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
