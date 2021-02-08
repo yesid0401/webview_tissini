@@ -1,16 +1,16 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import Home from '../views/Home.vue'
+import  Webview from '../views/Webview.vue' 
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/webview'
   },
   {
-    path: '/home',
-    name: 'Home',
-    component: Home
+    path: '/webview',
+    name: 'webview',
+    component: Webview
   }
 ]
 
