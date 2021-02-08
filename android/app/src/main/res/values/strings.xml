@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TISSINI</string>
+    <string name="title_activity_main">TISSINI</string>
+    <string name="package_name">app.tissini.webview_tissini</string>
+    <string name="custom_url_scheme">app.tissini.webview_tissini</string>
+</resources>
