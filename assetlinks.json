@@ -1,0 +1,10 @@
+[
+    {
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : {
+                        "namespace": "android_app",
+                        "package_name": "app.tissini.webview_tissini",
+                        "sha256_cert_fingerprints": ["26:6B:D6:3E:E4:02:2E:10:01:74:0F:A7:29:0C:BE:07:C3:00:76:A4:17:44:E0:F4:89:AD:85:88:B6:60:49:E8"]
+                    }
+    }
+]
