@@ -1,10 +1,16 @@
 import {InAppBrowserOptions,InAppBrowser} from '@ionic-native/in-app-browser';
 import {Plugins} from '@capacitor/core'
-import {ruta} from '../router'
+//import {ruta} from '../router'
 
 const {App} = Plugins;
 
 const getWebview: any = (()=> {
+    let ruta:any = '';
+
+    const getUrl:any = async ()=>{
+        const url = await App.getLaunchUrl();
+        ruta = url.url
+      }
 
     const {create} = InAppBrowser
     const options: InAppBrowserOptions = {
@@ -12,9 +18,14 @@ const getWebview: any = (()=> {
         fullscreen:'no'
     }
 
-    const getWeb = ()=>{
-     // create(`https://tissini.app/${ruta}`,'_self',options)
-      console.log('mostrando ruta desde webview.ts => ',ruta);
+    const getWeb = async()=>{
+        await getUrl()
+        if(ruta === undefined){
+            create('https://tissini.app/','_self',options)
+        }else {
+            create(ruta,'_self',options)
+        }
+
     }
 
     return {getWeb}
