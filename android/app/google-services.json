@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "318339607436",
+    "project_id": "tissini-3eee5",
+    "storage_bucket": "tissini-3eee5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318339607436:android:55569a96c345773b2084a9",
+        "android_client_info": {
+          "package_name": "app.tissini.webview_tissini"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318339607436-j16n2ol9aoq6a1u0md033rl7ns6j0ufi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACoSqzgXwspAPoT0-4Nb_o7RP2fT-F508"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318339607436-j16n2ol9aoq6a1u0md033rl7ns6j0ufi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

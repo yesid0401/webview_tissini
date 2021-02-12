@@ -7,7 +7,7 @@
 <script lang="ts">
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import {Plugins} from '@capacitor/core'
+//import {Plugins} from '@capacitor/core'
 
 export default defineComponent({
   name: 'App',
@@ -16,11 +16,11 @@ export default defineComponent({
     IonRouterOutlet
   },
   setup(props) {
-    const {StatusBar} = Plugins
-    const showStatusBar = ()=>{
-      StatusBar.show()  
-    }
-    showStatusBar()
+    // const {StatusBar} = Plugins
+    // const showStatusBar = ()=>{
+    //   StatusBar.show()  
+    // }
+    // showStatusBar()
   }
 });
 </script>
