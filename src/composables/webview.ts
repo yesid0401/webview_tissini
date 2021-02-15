@@ -1,7 +1,7 @@
 import {InAppBrowserOptions,InAppBrowser} from '@ionic-native/in-app-browser';
-import {Plugins,PushNotificationActionPerformed,} from '@capacitor/core'
+import {Plugins,PushNotificationActionPerformed,AppUrlOpen,PushNotification} from '@capacitor/core'
 
-const {App,PushNotifications} = Plugins;
+const {App,PushNotifications,Toast} = Plugins;
 const getWebview: any = (()=> {
     const {create} = InAppBrowser
 
@@ -9,22 +9,20 @@ const getWebview: any = (()=> {
         location:'no',
         fullscreen:'no'
     }
-    let ruta = '';
+
+    let ruta: any = undefined;
     
-    const getUrl: any = async ()=>{
-        const url = await App.getLaunchUrl();
-        ruta = url.url
-      }
     const getWeb = async()=>{
-        await getUrl()
 
-        let browser: any ;
         if(ruta === undefined){
-            browser = create('https://tissini.app/','_self',options)
-             
-        }else {
-           browser = create(ruta,'_self',options)
+           const browser = create('https://tissini.app/','_self',options)
 
+            browser.on('loadstart').subscribe((event: any)=>{
+                Toast.show({
+                    text:'cargando...',
+                    position:'center'
+                })
+            })
         }
 
         // browser.on('loaderror').subscribe((event:any) => {
@@ -40,8 +38,35 @@ const getWebview: any = (()=> {
         PushNotifications.addListener('pushNotificationActionPerformed',((notification: PushNotificationActionPerformed) =>{
             const {link} = notification.notification.data
             ruta = link
-            create(ruta,'_self',options)
+            const browser = create('https://tissini.app/','_self',options)
+
+            browser.on('loadstart').subscribe((event: any)=>{
+                Toast.show({
+                    text:'cargando...',
+                    position:'center'
+                })
+            })
         }))
+
+        App.addListener('appUrlOpen',((data: AppUrlOpen)=>{
+               ruta = data.url
+              const browser = create('https://tissini.app/','_self',options)
+
+               browser.on('loadstart').subscribe((event: any)=>{
+                   Toast.show({
+                       text:'cargando...',
+                       position:'center',
+                   })
+               })
+        }))
+
+        PushNotifications.addListener('pushNotificationReceived',(notification:PushNotification)=>{
+           
+            Toast.show({
+                text: 'notification.data.title',
+                position:'top',
+            })
+        })
     }
 
     return {getWeb}
