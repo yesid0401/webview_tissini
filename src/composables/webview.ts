@@ -29,7 +29,7 @@ const getWebview: any = (()=> {
                     browser.hide();
                     const wpBrowser = create(event.url,'_system');
                     setTimeout(() => {
-                        browser._loadAfterBeforeload('https://tissini.app/')
+                       browser._loadAfterBeforeload('https://tissini.app/')
                        browser.show()
                     }, 2000);
                 }
