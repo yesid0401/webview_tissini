@@ -1,6 +1,8 @@
-
 import {Plugins,PushNotificationActionPerformed,PushNotification,PushNotificationToken } from '@capacitor/core'
-const {PushNotifications,Toast} = Plugins;
+import eventsBrowser from './eventsBrowser'
+
+const {PushNotifications} = Plugins;
+
 
 const notifications = (router:any,create:any,options:any)=>{
     PushNotifications.requestPermission().then( result => {
@@ -30,16 +32,13 @@ const notifications = (router:any,create:any,options:any)=>{
         const {link} = notification.notification.data
         router=link
         if(router == undefined){
-           return create('https://tissini.app/','_blank',options)
+           const browser =  create('https://tissini.app/','_blank',options)
+           eventsBrowser(browser)
+        }else {
+            const browser = create(link,'_self',options)
+            eventsBrowser(browser)
         }
-        const browser = create(link,'_self',options)
-        browser.on('loadstart').subscribe(()=>{
-            Toast.show({
-                text:'cargando...',
-                position:'center',
-                duration:'long'
-            })
-        })
+
     }))
 }
 
