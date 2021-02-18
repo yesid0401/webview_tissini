@@ -9,6 +9,9 @@
       "launchShowDuration": 0,
       "launchAutoHide": false,
       "androidSplashResourceName": "splash"
+    },
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
     }
   },
   "cordova": {}
