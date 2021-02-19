@@ -54,7 +54,7 @@ const notifications = (router: any,create: any,options: any)=>{
            const browser =  create('https://tissini.app/','_blank',options)
            eventsBrowser(browser)
         }else {
-            const browser = create(link,'_self',options)
+            const browser = create(link,'_blank',options)
             eventsBrowser(browser)
         }
 
