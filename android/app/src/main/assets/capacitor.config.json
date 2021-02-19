@@ -12,6 +12,10 @@
     },
     "PushNotifications": {
       "presentationOptions": ["badge", "sound", "alert"]
+    },
+    "LocalNotifications": {
+      "smallIcon": "res://ic_launcher_round",
+      "iconColor": "#FF4EF2"
     }
   },
   "cordova": {}

@@ -18,7 +18,6 @@ const options: InAppBrowserOptions = {
 const getWebview: any = (()=> {
     
     const getWeb = async()=>{
-
         if(router === undefined){
            const browser = create('https://tissini.app/','_blank',options)
            eventsBrowser(browser)

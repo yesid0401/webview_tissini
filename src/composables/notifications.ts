@@ -1,14 +1,22 @@
-import {Plugins,PushNotificationActionPerformed,PushNotification,PushNotificationToken } from '@capacitor/core'
+import {Plugins ,PushNotificationActionPerformed,PushNotification,PushNotificationToken, LocalNotificationActionPerformed } from '@capacitor/core'
 import eventsBrowser from './eventsBrowser'
+import { FCM } from '@capacitor-community/fcm';
+const fcm = new FCM();
+const {PushNotifications,LocalNotifications} = Plugins;
 
-const {PushNotifications} = Plugins;
 
+const notifications = (router: any,create: any,options: any)=>{
 
-const notifications = (router:any,create:any,options:any)=>{
     PushNotifications.requestPermission().then( result => {
         if (result.granted) {
           // Register with Apple / Google to receive push via APNS/FCM
-          PushNotifications.register();
+          PushNotifications.register().then(()=>{
+              fcm.subscribeTo({
+                  topic:'UserLogout'
+              }).then((data)=>{
+                  //aqui va algo
+              })
+          })
         } else {
           // Show some error
         }  
@@ -17,17 +25,28 @@ const notifications = (router:any,create:any,options:any)=>{
     // On success, we should be able to receive notifications
     PushNotifications.addListener('registration',
         (token: PushNotificationToken) => {
-            console.log(token.value);
+           // aqui puedo ver el token
         }
     );
 
     // Show us the notification payload if the app is open on our device
     PushNotifications.addListener('pushNotificationReceived',
         (notification: PushNotification) => {
-            alert('Push received: ' + JSON.stringify(notification));
+            console.log(notification);
+            LocalNotifications.schedule({
+                notifications:[
+                    {
+                            title: notification.title || '',
+                            body: notification.body || '',
+                            id: 12,   
+                            extra:{
+                                link:notification.data.link
+                            }
+                    }
+                ]
+            })
         }
     );
-  
     PushNotifications.addListener('pushNotificationActionPerformed',((notification: PushNotificationActionPerformed) =>{
         const {link} = notification.notification.data
         router=link
@@ -40,6 +59,20 @@ const notifications = (router:any,create:any,options:any)=>{
         }
 
     }))
+
+
+    LocalNotifications.addListener('localNotificationActionPerformed',(notification: LocalNotificationActionPerformed) =>{
+        const {link} = notification.notification.extra;
+        router=link
+        if(router == undefined){
+           const browser =  create('https://tissini.app/','_blank',options)
+           eventsBrowser(browser)
+        }else {
+            const browser = create(link,'_self',options)
+            eventsBrowser(browser)
+        }
+
+    })
 }
 
 export default notifications;
