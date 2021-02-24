@@ -14,7 +14,7 @@ import com.pusher.pushnotifications.PushNotificationsInstance;
 import com.getcapacitor.community.fcm.FCMPlugin;
 
 import java.util.ArrayList;
-
+import app.tissini.pusherBeams.PusherBeamsPlugin;
 
 
 public class MainActivity extends BridgeActivity {
@@ -24,6 +24,7 @@ public class MainActivity extends BridgeActivity {
 
     PushNotifications.start(getApplicationContext(), "d6c86a48-12cf-486a-bcef-7699a38936a9");
     PushNotifications.addDeviceInterest("hello");
+
     PushNotifications.setOnMessageReceivedListenerForVisibleActivity(this, new PushNotificationReceivedListener() {
       @Override
       public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -36,8 +37,9 @@ public class MainActivity extends BridgeActivity {
     this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
       // Additional plugins you've installed go here
       // Ex: add(TotallyAwesomePlugin.class);
-
+      add(PusherBeamsPlugin.class);
       add(FCMPlugin.class);
+
     }});
 
 

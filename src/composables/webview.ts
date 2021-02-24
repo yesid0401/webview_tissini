@@ -3,6 +3,7 @@ import {Plugins,AppUrlOpen } from '@capacitor/core';
 import notifications from './notifications'
 import eventsBrowser from './eventsBrowser'
 
+
 const {App} = Plugins;
 const {create} = InAppBrowser
 let router: any = undefined;
@@ -24,12 +25,14 @@ const getWebview: any = (()=> {
         }      
 
         App.addListener('appUrlOpen',((data: AppUrlOpen)=>{
-            router = data.url
-              const browser = create(router,'_self',options)
+
+                alert('se ejecuta appUrlOpen')
+              router = data.url
+              const browser = create(router,'_blank',options)
               eventsBrowser(browser)
         }));
 
-        notifications(router,create,options)
+        notifications(create,options)
     }
 
     return {getWeb}

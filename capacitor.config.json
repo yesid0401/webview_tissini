@@ -7,9 +7,18 @@
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0,
-      "launchAutoHide": false,
-      "androidSplashResourceName": "splash"
+      "launchAutoHide": true,
+      "backgroundColor": "#fff",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "androidSpinnerStyle": "large",
+      "iosSpinnerStyle": "small",
+      "spinnerColor": "#c92a75",
+      "showSpinner": true,
+      "splashFullScreen": true,
+      "splashImmersive": true
     },
+    
     "PushNotifications": {
       "presentationOptions": ["badge", "sound", "alert"]
     },
