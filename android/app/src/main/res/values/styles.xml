@@ -17,9 +17,9 @@
 
 
      <style name="AppTheme.NoActionBarLaunch" parent="AppTheme.NoActionBar">
-        <!-- <item name="android:background">@drawable/splash</item> -->
-         <item name="android:background">@android:color/white</item>
-    </style>*
+         <!--  <item name="android:background">@drawable/splash</item> -->
+          <item name="android:background">#FFF</item>
+    </style>
 
 
 </resources>

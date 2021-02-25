@@ -6,7 +6,7 @@ import eventsBrowser from './eventsBrowser'
 
 const {App} = Plugins;
 const {create} = InAppBrowser
-let router: any = undefined;
+let router: any = 'https://tissini.app';
 
 const options: InAppBrowserOptions = {
     location:'no',
@@ -18,21 +18,20 @@ const options: InAppBrowserOptions = {
 
 const getWebview: any = (()=> {
     
-    const getWeb = async()=>{
-        if(router === undefined){
-           const browser = create('https://tissini.app/','_blank',options)
-           eventsBrowser(browser)
-        }      
+    const getWeb = ()=>{
+        notifications(create,router,options)
 
         App.addListener('appUrlOpen',((data: AppUrlOpen)=>{
-
-                alert('se ejecuta appUrlOpen')
-              router = data.url
-              const browser = create(router,'_blank',options)
-              eventsBrowser(browser)
+            router = data.url
+           const browser = create(router,'_self',options)
+           eventsBrowser(browser)
         }));
 
-        notifications(create,options)
+      //  if(router == undefined){
+           const browser = create(router,'_self',options)
+           eventsBrowser(browser)
+      //  }      
+        
     }
 
     return {getWeb}

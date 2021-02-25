@@ -5,7 +5,7 @@ const fcm = new FCM();
 const {PushNotifications,LocalNotifications} = Plugins;
 
 
-const notifications = (create: any,options: any)=>{
+const notifications = (create: any,route: any, options: any)=>{
 
     PushNotifications.requestPermission().then( result => {
         if (result.granted) {
@@ -49,12 +49,13 @@ const notifications = (create: any,options: any)=>{
     );
     PushNotifications.addListener('pushNotificationActionPerformed',((notification: PushNotificationActionPerformed) =>{
         const {link} = notification.notification.data
-       
+        route = link
         if(link == undefined){
-           const browser =  create('https://tissini.app/','_blank',options)
+           const browser =  create(route,'_self',options)
            eventsBrowser(browser)
         }else {
-            const browser = create(link,'_blank',options)
+           
+            const browser = create(link,'_self',options)
             eventsBrowser(browser)
         }
 
@@ -63,12 +64,12 @@ const notifications = (create: any,options: any)=>{
 
     LocalNotifications.addListener('localNotificationActionPerformed',(notification: LocalNotificationActionPerformed) =>{
         const {link} = notification.notification.extra;
-        
+        route = link
         if(link == undefined){
-           const browser =  create('https://tissini.app/','_blank',options)
+           const browser =  create(route,'_self',options)
            eventsBrowser(browser)
         }else {
-            const browser = create(link,'_blank',options)
+            const browser = create(link,'_self',options)
             eventsBrowser(browser)
         }
 

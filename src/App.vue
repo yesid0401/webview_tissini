@@ -1,29 +1,25 @@
 <template>
   <ion-app>
-    <ion-router-outlet />
   </ion-app>
 </template>
 
 <script lang="ts">
-import { IonApp, IonRouterOutlet } from '@ionic/vue';
+import { IonApp } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import {Plugins} from '@capacitor/core'
+import getWebview from './composables/webview'
 
 export default defineComponent({
   name: 'App',
   components: {
-    IonApp,
-    IonRouterOutlet
+    IonApp
   },
   setup(props) {
-
-   const {SplashScreen } = Plugins
-
-   SplashScreen.show({
-      showDuration: 5000,
-      autoHide: true
-  });
-
+      const {getWeb} = getWebview()
+      getWeb()
   }
+
+
 });
+
+
 </script>
