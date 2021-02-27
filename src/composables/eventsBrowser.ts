@@ -42,14 +42,17 @@ const eventsBrowser =  (browser: any)=>{
 
                         await PusherBeamsPlugin.addDeviceInterest({interest: id.toString()})
                         await PusherBeamsPlugin.addDeviceInterest({interest: stage})
+                        await PusherBeamsPlugin.getDeviceInterests()
 
                         if(escalafon != null) 
                             await PusherBeamsPlugin.addDeviceInterest({interest: escalafon.toString()})
                     })
 
             }else{
+                    await PusherBeamsPlugin.clearDeviceInterests()
                     await PusherBeamsPlugin.addDeviceInterest({interest: 'noLogin'})
-                    await PusherBeamsPlugin.removeDeviceInterest({interest: 'login'})
+                    await PusherBeamsPlugin.addDeviceInterest({interest: 'general'})
+                    await PusherBeamsPlugin.getDeviceInterests()
             }
         })
 
