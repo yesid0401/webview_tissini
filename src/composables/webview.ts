@@ -1,12 +1,11 @@
 import {InAppBrowserOptions,InAppBrowser} from '@ionic-native/in-app-browser';
-import {Plugins,AppUrlOpen } from '@capacitor/core';
 import notifications from './notifications'
 import eventsBrowser from './eventsBrowser'
+import useEventUrl from './useEventUrl'
 
 
-const {App} = Plugins;
 const {create} = InAppBrowser
-let router: any = 'https://tissini.app';
+let router: boolean = true;
 
 const options: InAppBrowserOptions = {
     location:'no',
@@ -19,18 +18,14 @@ const options: InAppBrowserOptions = {
 const getWebview: any = (()=> {
     
     const getWeb = ()=>{
-        notifications(create,router,options)
+     notifications(create,router,options)
+     useEventUrl(create,router,options)
 
-        App.addListener('appUrlOpen',((data: AppUrlOpen)=>{
-            router = data.url
-           const browser = create(router,'_self',options)
+       if(router){
+           console.log('imprimiendo dentro de  router',router);
+           const browser = create('https://tissini.app/','_blank',options)
            eventsBrowser(browser)
-        }));
-
-      //  if(router == undefined){
-           const browser = create(router,'_self',options)
-           eventsBrowser(browser)
-      //  }      
+       }    
         
     }
 

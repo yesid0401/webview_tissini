@@ -32,11 +32,28 @@ const eventsBrowser =  (browser: any)=>{
             if(isLogin){
                     await PusherBeamsPlugin.addDeviceInterest({interest: 'login'})
                     await PusherBeamsPlugin.removeDeviceInterest({interest: 'noLogin'})
+
+                    browser.executeScript({
+                        code: "JSON.parse(localStorage.getItem('customer'));"
+                    }).then(async (data: any)=>{
+                        const {id}        = data[0];
+                        const {stage}     = data[0];
+                        const {escalafon} = data[0].elite
+
+                        await PusherBeamsPlugin.addDeviceInterest({interest: id.toString()})
+                        await PusherBeamsPlugin.addDeviceInterest({interest: stage})
+
+                        if(escalafon != null) 
+                            await PusherBeamsPlugin.addDeviceInterest({interest: escalafon.toString()})
+                    })
+
             }else{
                     await PusherBeamsPlugin.addDeviceInterest({interest: 'noLogin'})
                     await PusherBeamsPlugin.removeDeviceInterest({interest: 'login'})
             }
         })
+
+
     })
 }
 

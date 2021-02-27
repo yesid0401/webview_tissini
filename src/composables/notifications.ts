@@ -1,22 +1,14 @@
 import {Plugins ,PushNotificationActionPerformed,PushNotification,PushNotificationToken, LocalNotificationActionPerformed } from '@capacitor/core'
 import eventsBrowser from './eventsBrowser'
-import { FCM } from '@capacitor-community/fcm';
-const fcm = new FCM();
 const {PushNotifications,LocalNotifications} = Plugins;
 
 
-const notifications = (create: any,route: any, options: any)=>{
+const notifications = (create: any,router:Boolean, options: any)=>{
 
-    PushNotifications.requestPermission().then( result => {
+    PushNotifications.requestPermission().then( async(result) => {
         if (result.granted) {
           // Register with Apple / Google to receive push via APNS/FCM
-          PushNotifications.register().then(()=>{
-              fcm.subscribeTo({
-                  topic:'UserLogout'
-              }).then((data)=>{
-                  //aqui va algo
-              })
-          })
+         await PushNotifications.register()
         } else {
           // Show some error
         }  
@@ -32,7 +24,6 @@ const notifications = (create: any,route: any, options: any)=>{
     // Show us the notification payload if the app is open on our device
     PushNotifications.addListener('pushNotificationReceived',
         (notification: PushNotification) => {
-            console.log(notification);
             LocalNotifications.schedule({
                 notifications:[
                     {
@@ -49,13 +40,13 @@ const notifications = (create: any,route: any, options: any)=>{
     );
     PushNotifications.addListener('pushNotificationActionPerformed',((notification: PushNotificationActionPerformed) =>{
         const {link} = notification.notification.data
-        route = link
+        router = false
         if(link == undefined){
-           const browser =  create(route,'_self',options)
+           const browser =  create('https://tissini.app/','_blank',options)
            eventsBrowser(browser)
         }else {
            
-            const browser = create(link,'_self',options)
+            const browser = create(link,'_blank',options)
             eventsBrowser(browser)
         }
 
@@ -64,16 +55,19 @@ const notifications = (create: any,route: any, options: any)=>{
 
     LocalNotifications.addListener('localNotificationActionPerformed',(notification: LocalNotificationActionPerformed) =>{
         const {link} = notification.notification.extra;
-        route = link
+        router = false
         if(link == undefined){
-           const browser =  create(route,'_self',options)
+           const browser =  create('https://tissini.app/','_blank',options)
            eventsBrowser(browser)
         }else {
-            const browser = create(link,'_self',options)
+            const browser = create(link,'_blank',options)
             eventsBrowser(browser)
         }
 
     })
+    console.log('imprimiendo dentro de  notifications',router);
+
+    return router;
 }
 
 export default notifications;

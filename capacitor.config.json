@@ -1,5 +1,5 @@
 {
-  "appId": "app.tissini.webview_tissini", 
+  "appId": "com.tissini.webapp", 
   "appName": "webview_tissini",
   "bundledWebRuntime": false,
   "npmClient": "npm",
